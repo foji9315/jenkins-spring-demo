@@ -13,6 +13,9 @@ pipeline {
         }
 
         stage('Deploy DEV') {
+            when {
+                branch 'develop'
+            }
             steps{
             input 'Deploy to Dev?'
                 sh label: '', script: 'git remote -v'
@@ -24,6 +27,9 @@ pipeline {
         }
 
         stage('Prepare to QA') {
+            when {
+                branch 'develop'
+            }
             steps {
                 sh "mvn clean install"
                 input 'Deploy to QA?'
@@ -31,6 +37,9 @@ pipeline {
         }
 
         stage('Deploy QA') {
+            when {
+                branch 'develop'
+            }
             steps {
                 sh label: '', script: 'git remote -v'
                 withCredentials([string(credentialsId: 'API_KEY', variable: 'API_KEY')]) {
