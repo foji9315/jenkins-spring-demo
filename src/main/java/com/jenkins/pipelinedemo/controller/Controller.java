@@ -8,6 +8,6 @@ public class Controller {
 
     @GetMapping("/greeting")
     public String gretting() {
-        return "Pipe-line example success";
+        return "Pipe-line example success - feature PR";
     }
 }
