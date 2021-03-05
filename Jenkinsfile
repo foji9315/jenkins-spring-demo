@@ -8,10 +8,9 @@ pipeline {
         }
         stage('Jacoco Report'){
         steps{
-                jacoco exclusionPattern: '**/*Test*,**/model/**,**/security/SecurityConfiguration**,**/SpringFoxConfig**,**/*JwtRequestFilter*.class,**/*DBinit*.class,**/*UserPrincipalDetailsService*.class', maximumInstructionCoverage: '30'
+                jacoco exclusionPattern: '**/*Test*,**/model/**,**/security/SecurityConfiguration**,**/SpringFoxConfig**,**/*JwtRequestFilter*.class,**/*DBinit*.class,**/*UserPrincipalDetailsService*.class', maximumInstructionCoverage: '0'
             }
         }
-
         stage('Deploy DEV') {
             when {
                 branch 'develop'
@@ -43,7 +42,7 @@ pipeline {
             steps {
                 sh label: '', script: 'git remote -v'
                 withCredentials([string(credentialsId: 'API_KEY', variable: 'API_KEY')]) {
-                    sh('HEROKU_API_KEY="${API_KEY}" mvn heroku:deploy -Dheroku.appName=at-sso-qa')
+                    sh('HEROKU_API_KEY="${API_KEY}" mvn heroku:deploy -P qa')
                 }
             }
         }
