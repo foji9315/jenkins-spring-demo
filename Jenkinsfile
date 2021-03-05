@@ -11,9 +11,6 @@ pipeline {
                 jacoco exclusionPattern: '**/*Test*,**/model/**,**/security/SecurityConfiguration**,**/SpringFoxConfig**,**/*JwtRequestFilter*.class,**/*DBinit*.class,**/*UserPrincipalDetailsService*.class', maximumInstructionCoverage: '0'
             }
         }
-        when {
-            branch 'develop'
-        }
         stage('Deploy DEV') {
             when {
                 branch 'develop'
